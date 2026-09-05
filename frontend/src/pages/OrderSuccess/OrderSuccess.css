@@ -1,0 +1,137 @@
+.order-success-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 40px 20px;
+}
+
+.order-success-card {
+    background: #ffffff;
+    border: 1px solid #ffe0da;
+    border-radius: 16px;
+    padding: 40px 30px;
+    max-width: 550px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 10px 30px rgba(255, 99, 71, 0.12);
+    animation: fadeInSuccess 0.5s ease-out;
+}
+
+@keyframes fadeInSuccess {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.success-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 24px auto;
+    box-shadow: 0 0 0 10px rgba(76, 175, 80, 0.15);
+}
+
+.success-checkmark {
+    font-size: 44px;
+    color: white;
+    font-weight: bold;
+}
+
+.order-success-card h2 {
+    font-size: 26px;
+    color: #2c3e50;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.success-subtitle {
+    font-size: 15px;
+    color: #666666;
+    line-height: 1.5;
+    margin-bottom: 28px;
+}
+
+.success-order-details {
+    background-color: #fff9f8;
+    border: 1px dashed #ff6347;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #444;
+}
+
+.status-highlight {
+    color: #ff6347;
+    font-weight: 600;
+}
+
+.sms-sent-badge {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.order-success-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.order-success-actions button {
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.track-btn {
+    background-color: #ff6347;
+    color: white;
+}
+
+.track-btn:hover {
+    background-color: #e54d32;
+    box-shadow: 0px 4px 12px rgba(255, 99, 71, 0.3);
+}
+
+.home-btn {
+    background-color: #f1f2f6;
+    color: #333333;
+}
+
+.home-btn:hover {
+    background-color: #e4e5ea;
+}
+
+@media (max-width: 600px) {
+    .order-success-actions {
+        flex-direction: column;
+    }
+}

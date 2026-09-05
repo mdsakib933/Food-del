@@ -1,0 +1,393 @@
+.my-orders {
+    margin: 50px 0px;
+}
+
+.my-orders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.my-orders-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #323232;
+    margin: 0;
+}
+
+/* Pulsing Live Status Badge */
+.live-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: 1px solid #a5d6a7;
+}
+
+.live-status-badge.small {
+    padding: 4px 10px;
+    font-size: 10px;
+}
+
+.live-pulsing-dot {
+    width: 9px;
+    height: 9px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    animation: livePulse 1.5s infinite;
+}
+
+@keyframes livePulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(76, 175, 80, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+.my-orders .container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.my-orders-order-card {
+    border: 1px solid #ff6347;
+    border-radius: 10px;
+    background-color: #fff8f6;
+    padding: 20px;
+    transition: box-shadow 0.2s ease;
+}
+
+.my-orders-order-card:hover {
+    box-shadow: 0px 6px 16px rgba(255, 99, 71, 0.15);
+}
+
+.my-orders-order {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 2fr 1fr;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    color: #454545;
+}
+
+.my-orders-order img {
+    width: 50px;
+}
+
+.status-dot.food-processing {
+    color: #ff9800;
+}
+
+.status-dot.out-for-delivery {
+    color: #2196f3;
+}
+
+.status-dot.delivered {
+    color: #4caf50;
+}
+
+.my-orders-order button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    background: #ff6347;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.my-orders-order button:hover {
+    background-color: #e54d32;
+}
+
+/* Quick Tracker Bar */
+.quick-tracker {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed #ffd5cd;
+}
+
+.tracker-bar-bg {
+    width: 100%;
+    height: 8px;
+    background-color: #ebd3cd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.tracker-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff9800, #ff6347, #4caf50);
+    transition: width 0.4s ease;
+}
+
+.tracker-steps-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+}
+
+.tracker-steps-labels span.active-step {
+    color: #ff6347;
+    font-weight: 600;
+}
+
+/* Tracking Modal Styles */
+.tracking-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.tracking-modal-content {
+    background: white;
+    width: 90%;
+    max-width: 650px;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.tracking-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.tracking-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tracking-modal-header h3 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #888;
+    cursor: pointer;
+}
+
+.tracking-order-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    background-color: #fcfcfc;
+    border: 1px solid #eaeaea;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.current-status-banner {
+    background-color: #fff3f0;
+    border-left: 4px solid #ff6347;
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.current-status-banner span {
+    color: #ff6347;
+    font-weight: 700;
+}
+
+/* Stepper Component */
+.stepper-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 35px;
+    padding: 0 10px;
+}
+
+.stepper-line-bg {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background-color: #e0e0e0;
+    z-index: 1;
+}
+
+.stepper-line-progress {
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.4s ease;
+}
+
+.step-item {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 30%;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 3px solid #ccc;
+    color: #888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.step-item.completed .step-circle {
+    border-color: #4caf50;
+    background-color: #4caf50;
+    color: white;
+}
+
+.step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 4px;
+}
+
+.step-desc {
+    font-size: 11px;
+    color: #777;
+}
+
+.delivery-details-box {
+    background-color: #f9fdf9;
+    border: 1px solid #d4edd9;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.delivery-details-box h4 {
+    margin-bottom: 10px;
+    color: #276738;
+}
+
+.delivery-details-box p {
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.refresh-toast-banner {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+    animation: fadeInToast 0.3s ease;
+}
+
+@keyframes fadeInToast {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tracking-modal-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.last-updated-time {
+    font-size: 12px;
+    color: #888;
+}
+
+.refresh-status-btn {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.refresh-status-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.refresh-status-btn:hover:not(:disabled) {
+    background-color: #e04b30;
+}
+
+.my-orders-empty, .my-orders-loading {
+    padding: 40px;
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+    .my-orders-order {
+        grid-template-columns: 1fr 2fr 1fr;
+        row-gap: 12px;
+        font-size: 12px;
+    }
+}
