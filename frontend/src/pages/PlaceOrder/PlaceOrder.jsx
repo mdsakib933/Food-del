@@ -48,7 +48,7 @@ const{getTotalCartAmount,token,food_list,cartItems,url} = useContext(StoreContex
 
   const orderData = {
     items: orderItems,
-    amount: getTotalCartAmount() + 2,
+    amount: getTotalCartAmount() + 40,
     address: data
   };
 
@@ -179,17 +179,17 @@ const{getTotalCartAmount,token,food_list,cartItems,url} = useContext(StoreContex
           <div>
             <div className="cart-total-details">
                 <p>Subtotal</p>
-                <p>${getTotalCartAmount()}</p>
+                <p>₹{getTotalCartAmount()}</p>
             </div>
             <hr/>
             <div className="cart-total-details">
-                <p>Delivery Free</p>
-                <p>${getTotalCartAmount()===0?0:2}</p>
+                <p>Delivery Fee</p>
+                <p>₹{getTotalCartAmount()===0?0:40}</p>
             </div>
             <hr/>
             <div className="cart-total-details">
                 <b>Total</b>
-                <b>${getTotalCartAmount()===0?0:getTotalCartAmount() +2}</b>
+                <b>₹{getTotalCartAmount()===0?0:getTotalCartAmount() + 40}</b>
             </div>
           </div>
           <button type='submit'>PROCEED TO PAYMENT</button>

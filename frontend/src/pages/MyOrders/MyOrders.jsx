@@ -109,7 +109,7 @@ const MyOrders = () => {
                                             }
                                         })}
                                     </p>
-                                    <p>${order.amount}.00</p>
+                                    <p>₹{order.amount}</p>
                                     <p>Items: {order.items.length}</p>
                                     <p className='status-pill'>
                                         <span className={`status-dot ${order.status.replace(/\s+/g, '-').toLowerCase()}`}>&#x25cf;</span>
@@ -163,7 +163,7 @@ const MyOrders = () => {
 
                         <div className="tracking-order-summary">
                             <p><strong>Order ID:</strong> #{activeTrackOrder._id}</p>
-                            <p><strong>Total Amount:</strong> ${activeTrackOrder.amount}.00</p>
+                            <p><strong>Total Amount:</strong> ₹{activeTrackOrder.amount}</p>
                             <p><strong>Payment Status:</strong> {activeTrackOrder.payment ? "✅ Paid Online" : "⏳ Pending"}</p>
                         </div>
 
