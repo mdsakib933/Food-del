@@ -39,6 +39,7 @@ const placeOrder = async (req, res) => {
             items,
             amount,
             address,
+            paymentMethod: "Razorpay",
             razorpayOrderId: razorpayOrder.id
         });
 
@@ -64,6 +65,114 @@ const placeOrder = async (req, res) => {
         res.status(500).json({
             success: false,
             message: error.message
+        });
+    }
+};
+
+// Placing user order with COD (Cash on Delivery)
+const placeOrderCOD = async (req, res) => {
+    try {
+        const { items, amount, address } = req.body;
+        const userId = req.userId || req.body.userId;
+
+        if (!userId || !items || items.length === 0 || !amount || !address) {
+            return res.json({
+                success: false,
+                message: "Missing order details"
+            });
+        }
+
+        const newOrder = new orderModel({
+            userId,
+            items,
+            amount,
+            address,
+            payment: false,
+            paymentMethod: "COD",
+            status: "Food Processing"
+        });
+
+        await newOrder.save();
+
+        // Clear cart
+        await userModel.findByIdAndUpdate(
+            userId,
+            { cartData: {} }
+        );
+
+        // Send SMS Notification
+        const recipientPhone = address?.phone || "Mobile Number";
+        const smsMessage = `Dear ${address?.firstName || 'Customer'}, your COD order #${newOrder._id.toString().slice(-6)} of ₹${amount} was placed successfully! Status: Food Processing. - Tomato`;
+
+        sendSMS(recipientPhone, smsMessage).catch((err) => {
+            console.log("SMS Send Error (non-blocking):", err);
+        });
+
+        res.json({
+            success: true,
+            message: "Order Placed Successfully (COD)",
+            dbOrderId: newOrder._id
+        });
+
+    } catch (error) {
+        console.log("COD Order Error:", error);
+        res.status(500).json({
+            success: false,
+            message: error.message || "Failed to place COD order"
+        });
+    }
+};
+
+// Placing user order with Stripe (Credit/Debit Card)
+const placeOrderStripe = async (req, res) => {
+    try {
+        const { items, amount, address } = req.body;
+        const userId = req.userId || req.body.userId;
+
+        if (!userId || !items || items.length === 0 || !amount || !address) {
+            return res.json({
+                success: false,
+                message: "Missing order details"
+            });
+        }
+
+        const newOrder = new orderModel({
+            userId,
+            items,
+            amount,
+            address,
+            payment: true,
+            paymentMethod: "Stripe",
+            status: "Food Processing"
+        });
+
+        await newOrder.save();
+
+        // Clear cart
+        await userModel.findByIdAndUpdate(
+            userId,
+            { cartData: {} }
+        );
+
+        // Send SMS Notification
+        const recipientPhone = address?.phone || "Mobile Number";
+        const smsMessage = `Dear ${address?.firstName || 'Customer'}, your Stripe payment of ₹${amount} for Order #${newOrder._id.toString().slice(-6)} was successful! Status: Food Processing. - Tomato`;
+
+        sendSMS(recipientPhone, smsMessage).catch((err) => {
+            console.log("SMS Send Error (non-blocking):", err);
+        });
+
+        res.json({
+            success: true,
+            message: "Order Placed Successfully (Stripe)",
+            dbOrderId: newOrder._id
+        });
+
+    } catch (error) {
+        console.log("Stripe Order Error:", error);
+        res.status(500).json({
+            success: false,
+            message: error.message || "Failed to process Stripe payment"
         });
     }
 };
@@ -207,4 +316,4 @@ const updateStatus = async (req, res) => {
     }
 };
 
-export { placeOrder, verifyOrder, deleteOrder, userOrders, listOrders, updateStatus };
+export { placeOrder, placeOrderCOD, placeOrderStripe, verifyOrder, deleteOrder, userOrders, listOrders, updateStatus };
