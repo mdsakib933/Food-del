@@ -70,22 +70,6 @@ const PlaceOrder = () => {
                 return;
             }
 
-            // 2. STRIPE PAYMENT
-            if (paymentMethod === "stripe") {
-                const response = await axios.post(
-                    url + "/api/order/place-stripe",
-                    orderData,
-                    { headers: { token } }
-                );
-
-                if (response.data.success) {
-                    window.location.href = `/order-success?orderId=${response.data.dbOrderId}`;
-                } else {
-                    window.location.href = `/payment-failed?reason=${encodeURIComponent(response.data.message || "Failed to process Stripe payment")}`;
-                }
-                return;
-            }
-
             // 3. RAZORPAY PAYMENT
             if (paymentMethod === "razorpay") {
                 const response = await axios.post(
@@ -220,32 +204,19 @@ const PlaceOrder = () => {
                     </div>
 
                     <div
-                        className={`payment-option-card ${paymentMethod === "stripe" ? "selected" : ""}`}
-                        onClick={() => setPaymentMethod("stripe")}
-                    >
-                        <div className={`custom-radio ${paymentMethod === "stripe" ? "active" : ""}`}></div>
-                        <div className="payment-option-info">
-                            <span className="payment-option-title">💳 Stripe (Credit / Debit Card)</span>
-                            <span className="payment-option-desc">Fast & secure online card payment</span>
-                        </div>
-                    </div>
-
-                    <div
                         className={`payment-option-card ${paymentMethod === "razorpay" ? "selected" : ""}`}
                         onClick={() => setPaymentMethod("razorpay")}
                     >
                         <div className={`custom-radio ${paymentMethod === "razorpay" ? "active" : ""}`}></div>
                         <div className="payment-option-info">
-                            <span className="payment-option-title">📱 Razorpay (UPI / NetBanking)</span>
-                            <span className="payment-option-desc">Pay via Google Pay, PhonePe, UPI</span>
+                            <span className="payment-option-title">📱 Razorpay (UPI / NetBanking / Cards)</span>
+                            <span className="payment-option-desc">Pay via Google Pay, PhonePe, UPI, Cards</span>
                         </div>
                     </div>
 
                     <button type='submit' className='place-order-submit-btn'>
                         {paymentMethod === "cod"
                             ? "PLACE ORDER (CASH ON DELIVERY)"
-                            : paymentMethod === "stripe"
-                            ? "PROCEED TO STRIPE PAYMENT"
                             : "PROCEED TO RAZORPAY PAYMENT"}
                     </button>
                 </div>

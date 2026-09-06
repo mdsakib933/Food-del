@@ -11,8 +11,7 @@ const razorpay = new Razorpay({
 
 const frontend_URL = 'https://food-del-frontend-n7wi.onrender.com/';
 
-
-// Placing user order for frontend
+// Placing user order for frontend (Razorpay)
 const placeOrder = async (req, res) => {
     try {
         const { items, amount, address } = req.body;
@@ -123,61 +122,6 @@ const placeOrderCOD = async (req, res) => {
     }
 };
 
-// Placing user order with Stripe (Credit/Debit Card)
-const placeOrderStripe = async (req, res) => {
-    try {
-        const { items, amount, address } = req.body;
-        const userId = req.userId || req.body.userId;
-
-        if (!userId || !items || items.length === 0 || !amount || !address) {
-            return res.json({
-                success: false,
-                message: "Missing order details"
-            });
-        }
-
-        const newOrder = new orderModel({
-            userId,
-            items,
-            amount,
-            address,
-            payment: true,
-            paymentMethod: "Stripe",
-            status: "Food Processing"
-        });
-
-        await newOrder.save();
-
-        // Clear cart
-        await userModel.findByIdAndUpdate(
-            userId,
-            { cartData: {} }
-        );
-
-        // Send SMS Notification
-        const recipientPhone = address?.phone || "Mobile Number";
-        const smsMessage = `Dear ${address?.firstName || 'Customer'}, your Stripe payment of ₹${amount} for Order #${newOrder._id.toString().slice(-6)} was successful! Status: Food Processing. - Tomato`;
-
-        sendSMS(recipientPhone, smsMessage).catch((err) => {
-            console.log("SMS Send Error (non-blocking):", err);
-        });
-
-        res.json({
-            success: true,
-            message: "Order Placed Successfully (Stripe)",
-            dbOrderId: newOrder._id
-        });
-
-    } catch (error) {
-        console.log("Stripe Order Error:", error);
-        res.status(500).json({
-            success: false,
-            message: error.message || "Failed to process Stripe payment"
-        });
-    }
-};
-
-
 const verifyOrder = async (req, res) => {
     try {
         const {
@@ -244,8 +188,7 @@ const verifyOrder = async (req, res) => {
             message: "Verification Error"
         });
     }
-}
-
+};
 
 const deleteOrder = async (req, res) => {
     try {
@@ -316,4 +259,4 @@ const updateStatus = async (req, res) => {
     }
 };
 
-export { placeOrder, placeOrderCOD, placeOrderStripe, verifyOrder, deleteOrder, userOrders, listOrders, updateStatus };
+export { placeOrder, placeOrderCOD, verifyOrder, deleteOrder, userOrders, listOrders, updateStatus };
