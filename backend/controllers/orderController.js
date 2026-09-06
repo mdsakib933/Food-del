@@ -9,6 +9,8 @@ const razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
+const frontend_URL = 'https://food-del-frontend-n7wi.onrender.com/';
+
 
 // Placing user order for frontend
 const placeOrder = async (req, res) => {
@@ -205,4 +207,4 @@ const updateStatus = async (req, res) => {
     }
 };
 
-export { placeOrder, verifyOrder, deleteOrder, userOrders, listOrders, updateStatus };
+export { placeOrder, verifyOrder, deleteOrder, userOrders, listOrders, updateStatus };
